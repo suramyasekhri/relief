@@ -1,7 +1,7 @@
 const path = require('path');
 
 module.exports = {
-  entry: 'index.js',
+  entry: './client/index.jsx',
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js',
@@ -24,12 +24,13 @@ module.exports = {
     ],
   },
   devServer: {
-    contentBase: path.join(__dirname, 'dist'),
-    historyApiFallback: true,
-    liveReload: true,
-    publicPath: 'http://localhost:8080/dist/',
+    contentBase: path.join(__dirname, 'public'),
+    publicPath: '/',
     proxy: {
       '/api': 'http://localhost:3000',
     },
+    historyApiFallback: true,
+    liveReload: true,
+    hot: true,
   },
 };
