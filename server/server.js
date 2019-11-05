@@ -1,18 +1,17 @@
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
+const charityRouter = require('./routes/charityRouter');
 
 const PORT = process.env.PORT || 3000;
 const app = express();
 
 // require routers
-const apiRouter = require('./routes/api');
+// const apiRouter = require('./routes/api');
 
 // plugin middleware for body parser and url encode
 app.use(express.json());
-app.use(express.urlencoded({
-  extended: true,
-}));
+app.use(express.urlencoded({ extended: false }));
 // enable cors
 app.use(cors());
 
@@ -20,6 +19,7 @@ app.use(cors());
 app.use(express.static(path.resolve(__dirname, '../public')));
 
 // define route handler
+app.use('/api/charity', charityRouter);
 // app.use('/api', apiRouter);
 
 // if not api call, serve index.html
