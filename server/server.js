@@ -1,3 +1,14 @@
+/**
+ * ************************************
+ *
+ * @module  server.js
+ * @author Benjamin Morrison/Timothy Mai
+ * @date 11/5/19
+ * @description creates server for application
+ *
+ * ************************************
+ */
+
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
@@ -25,6 +36,12 @@ app.use('/api', apiRouter);
 // if not api call, serve index.html
 app.get('/', (req, res) => {
   res.sendFile(path.resolve(__dirname, '../public/index.html'));
+});
+
+// sign-up route
+app.get('/signup', (req, res) => {
+  // res.sendFile(path.resolve(__dirname, 'ADD SIGNUP PAGE HERE'));
+  res.status(200).send('this is the signup route');
 });
 
 // 404 for unknown routes
