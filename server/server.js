@@ -21,7 +21,7 @@ app.get('/api', (req, res) => {
 
 app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, '../public/index.html'));
-  console.log(path.resolve(__dirname, '../public/index.html'));
+  //console.log(path.resolve(__dirname, '../public/index.html'));
 });
 
 app.use((err, req, res, next) => {
