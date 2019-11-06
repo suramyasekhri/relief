@@ -61,7 +61,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        Hello World from APP!
+        <h1>RELIEF</h1>
         <Filters filterStuff={this.state.filterState}/>
         <br />
         <br />
