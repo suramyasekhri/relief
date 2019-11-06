@@ -49,7 +49,7 @@ pool.on('connect', (err, client) => {
 });
 
 // export the query method for passing queries to the pool
-module.exports.query = (text, values, callback) => pool.query(text, values, callback);
+module.exports.query = (text, values) => externalDB.query(text, values);
 
 // the pool also supports checking out a client for
 // multiple operations, such as a transaction
