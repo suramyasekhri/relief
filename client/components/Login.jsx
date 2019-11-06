@@ -1,5 +1,12 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  Redirect,
+} from "react-router-dom";
 
 class Login extends Component {
   constructor(props) {
@@ -7,18 +14,21 @@ class Login extends Component {
     this.state = {
       username: '',
       password: '',
+      email: '',
       verified: false,
     };
     this.updateData = this.updateData.bind(this);
   }
 
   updateData() {
-    const url = '/api/signIn';
+    const url = '/api/user/signin';
     const data = {
       username: this.state.username,
       password: this.state.password,
+      email: this.state.email,
     };
     const handleVerified = (res) => {
+      console.log('handleVerified', res)
       this.setState({
         verified: res.verified,
       });
@@ -31,13 +41,16 @@ class Login extends Component {
       },
     })
       .then((res) => res.json())
-      .then(handleVerified.bind(this)).catch((err) => console.log(err));
+      // .then(handleVerified.bind(this)).catch((err) => console.log(err));
+      .then((res) => handleVerified.bind(this)(res))
+      .catch((err) => console.log(err));
+      console.log("here", data)
   }
 
   render() {
     let pages;
     if (this.state.verified) {
-      return <Redirect to={{ pathname: '/home', state: { username: this.state.username, password: this.state.password } }} />
+      return <Redirect to={{ pathname: '/home', state: { username: this.state.username, password: this.state.password, email: this.state.email } }} />
   } else {
     pages=
       <div className="loginArea">
@@ -50,13 +63,16 @@ class Login extends Component {
                   <div className="text-field">
                     <input className="password" type="password" placeholder="password" onChange={e => { this.setState({ password: e.target.value }) }}></input>
                   </div>
+                  <div className="text-field">
+                    <input className="email" type="text" placeholder="email" onChange={e => { this.setState({ email: e.target.value }) }}></input>
+                  </div>
                   <br />
                     <button className="loginbtn" type="submit" onClick={e => {
                             e.preventDefault(); this.updateData();
                         }}>Log In</button>
-                        <button className="loginbtn" type="submit" onClick={e => {
-                            e.preventDefault(); this.updateData();
-                        }}>Sign Up</button>
+                       <div className="sign-up-link">
+                          <Link to="./signup">Sign Up</Link>
+                      </div>
                 </form>
               </div>
           </div>

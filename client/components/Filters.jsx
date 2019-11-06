@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
+import Dropdown from 'react-dropdown';
+
 
 class Filters extends Component {
   constructor(props) {
@@ -8,6 +10,8 @@ class Filters extends Component {
       location: '',
       cause: '',
       rating: '',
+      listOpen: false,
+      headerTitle: this.props.title,
     };
     this.updateData = this.updateData.bind(this);
   }
