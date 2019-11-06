@@ -10,6 +10,7 @@
  * ************************************
  */
 
+ 
 const { pool } = require('../db/index');
 const queries = require('../db/user.model');
 
