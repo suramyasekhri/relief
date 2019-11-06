@@ -28,7 +28,6 @@ class Login extends Component {
       email: this.state.email,
     };
     const handleVerified = (res) => {
-      console.log('handleVerified', res)
       this.setState({
         verified: res.verified,
       });

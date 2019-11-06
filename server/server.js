@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /**
  * ************************************
  *
@@ -12,8 +13,12 @@
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
+const cookieParser = require('cookie-parser');
+
 const userRouter = require('./routes/userRouter');
 const charityRouter = require('./routes/charityRouter');
+const cookieController = require('./controllers/cookieController');
+const apollo = require('./gql/apollo');
 
 const PORT = process.env.PORT || 3000;
 const app = express();
@@ -23,6 +28,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 // enable cors
 app.use(cors());
+// set up cookie parser
+app.use(cookieParser());
 
 // serves static files on public folder like styles and html
 app.use(express.static(path.resolve(__dirname, '../public')));
@@ -34,16 +41,9 @@ app.use('/api/charity', charityRouter);
 app.use('/api/user', userRouter);
 
 // if not api call, serve index.html
-app.get('/', (req, res) => {
+app.get('/', cookieController.isLoggedIn, (req, res) => {
   res.sendFile(path.resolve(__dirname, '../public/index.html'));
 });
-
-// sign-up route
-// CHECK IF WE NEED THIS
-// app.get('/signup', (req, res) => {
-//   // res.sendFile(path.resolve(__dirname, 'ADD SIGNUP PAGE HERE'));
-//   res.status(200).send('this is the signup route');
-// });
 
 // 404 for unknown routes
 app.get('*', (req, res) => {
@@ -65,4 +65,7 @@ app.use((err, req, res, next) => {
 
 app.listen(PORT, () => {
   console.log(`App listening on PORT ${PORT}`);
+  apollo.listen().then(({ url }) => {
+    console.log(`Apollo server running ${url}`);
+  });
 });
