@@ -12,7 +12,7 @@
 module.exports = {
   checkUsernameAndEmail: 'SELECT * FROM user WHERE username = $1 OR email = $2', // when signing up, check if username or email has been used already
   createUser: 'INSERT INTO user (username, password, email) VALUES ($1, $2, $3)', // creates user on user table
-  readUser: '', // gets user info
+  getUser: 'SELECT * FROM user WHERE username = $1 AND password = $2', // gets user info
   updateUser: '', // change user info
   deleteUser: '', // delete user info
 };

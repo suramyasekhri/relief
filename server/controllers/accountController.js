@@ -31,7 +31,8 @@ accountController.checkSignUpInfo = (req, res, next) => {
       console.log('username or email has already been used');
 
       // redirect back to sign up page
-      return res.redirect('/signup');
+      // return res.redirect('/signup');
+      return res.status(200).json({ message: 'username or email has already been used' });
       // CONSIDER DISPLAYING AN ERROR MESSAGE OF SOME SORT INSTEAD
     }
 
@@ -52,6 +53,28 @@ accountController.createUser = (req, res, next) => {
     }
 
     console.log('user created!', result);
+
+    return next();
+  });
+};
+
+// sign in
+accountController.checkLoginInfo = (req, res, next) => {
+  // pull username and password from req.body
+  const { username, password } = req.body;
+
+  // CONSIDER ADDING FUNCTIONALITY TO CHECK FOR EMAIL & PASSWORD IN ADDITION TO USERNAME & PASSWORD
+
+  // will add cookies later
+
+  // run query to see if user credentials is accurate
+  pool.query(queries.getUser, [username, password], (err, result) => {
+    if (err) {
+      console.error('error found in getting user info', err);
+      return next(err);
+    }
+
+    console.log('logged in!');
 
     return next();
   });

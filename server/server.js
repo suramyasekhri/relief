@@ -30,7 +30,7 @@ app.use(cors());
 // serves static files on public folder like styles and html
 app.use(express.static(path.resolve(__dirname, '../public')));
 
-// define route handler
+// define API route handler
 app.use('/api', apiRouter);
 
 // if not api call, serve index.html
@@ -39,10 +39,11 @@ app.get('/', (req, res) => {
 });
 
 // sign-up route
-app.get('/signup', (req, res) => {
-  // res.sendFile(path.resolve(__dirname, 'ADD SIGNUP PAGE HERE'));
-  res.status(200).send('this is the signup route');
-});
+// CHECK IF WE NEED THIS
+// app.get('/signup', (req, res) => {
+//   // res.sendFile(path.resolve(__dirname, 'ADD SIGNUP PAGE HERE'));
+//   res.status(200).send('this is the signup route');
+// });
 
 // 404 for unknown routes
 app.get('*', (req, res) => {
