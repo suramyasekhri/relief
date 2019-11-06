@@ -8,6 +8,8 @@ class Filters extends Component {
     return (
       <div>
         Filters are showing!
+        Filter with zip code
+        Filter with 
         <div>
           {this.props.filterStuff}
         </div>
@@ -16,5 +18,7 @@ class Filters extends Component {
   }
 
 }
+
+
 
 export default Filters;
