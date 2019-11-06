@@ -1,29 +1,38 @@
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
+const charityRouter = require('./routes/charityRouter');
 
 const PORT = process.env.PORT || 3000;
 const app = express();
 
+// require routers
+// const apiRouter = require('./routes/api');
+
+// plugin middleware for body parser and url encode
 app.use(express.json());
-app.use(express.urlencoded({
-  extended: true,
-}));
+app.use(express.urlencoded({ extended: false }));
+// enable cors
 app.use(cors());
 
+// serves static files on public folder like styles and html
 app.use(express.static(path.resolve(__dirname, '../public')));
 
-app.get('/api', (req, res) => {
-  res.status(200).json({
-    message: 'Hello, World',
-  });
-});
+// define route handler
+app.use('/api/charity', charityRouter);
+// app.use('/api', apiRouter);
 
-app.get('*', (req, res) => {
+// if not api call, serve index.html
+app.get('/', (req, res) => {
   res.sendFile(path.resolve(__dirname, '../public/index.html'));
-  console.log(path.resolve(__dirname, '../public/index.html'));
 });
 
+// 404 for unknown routes
+app.get('*', (req, res) => {
+  res.status(404).send('Page not found!!');
+});
+
+// Global error handler
 app.use((err, req, res, next) => {
   const errorTemplate = {
     status: 500,
