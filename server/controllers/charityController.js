@@ -38,6 +38,7 @@ charityController.getCharities = (req, res, next) => {
   const outputQuery = Object.assign(charityQuery, userQuery);
   const stringified = queryString.stringify(outputQuery);
   const apiCall = charityAPIEndpoint + '?' + stringified;
+  console.log(apiCall);
   (async () => {
     try {
       const response = await axios(apiCall);
@@ -78,6 +79,7 @@ charityController.getCharity = (req, res, next) => {
   const { ein } = req.params;
   const stringified = queryString.stringify(query);
   const apiCall = charityAPIEndpoint + '/' + ein + '?' + stringified;
+  console.log(apiCall);
   (async () => {
     try {
       const response = await axios(apiCall);
@@ -91,6 +93,7 @@ charityController.getCharity = (req, res, next) => {
 
 // insert charity with unique ein to relief db
 charityController.saveCharity = (req, res, next) => {
+  console.log(res.locals.charities);
   (async () => {
     try {
       const response = await query(model.readCharity(), '');

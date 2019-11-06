@@ -38,13 +38,6 @@ app.get('/', (req, res) => {
   res.sendFile(path.resolve(__dirname, '../public/index.html'));
 });
 
-// sign-up route
-// CHECK IF WE NEED THIS
-// app.get('/signup', (req, res) => {
-//   // res.sendFile(path.resolve(__dirname, 'ADD SIGNUP PAGE HERE'));
-//   res.status(200).send('this is the signup route');
-// });
-
 // 404 for unknown routes
 app.get('*', (req, res) => {
   res.status(404).send('Page not found!!');
