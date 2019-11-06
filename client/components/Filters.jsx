@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { render } from 'react-dom';
 
 class Filters extends Component {
   constructor(props) {
@@ -36,7 +35,7 @@ class Filters extends Component {
 
   render() {
     return (
-      <div className= "filter-box">
+      <div className="filter-box">
         <form action="/home" className="userInfo">
         <input className="location" type="text" placeholder="location" onChange={e => { this.setState({ location: e.target.value }) }}></input>
         <input className="cause" type="text" placeholder="cause" onChange={e => { this.setState({ cause: e.target.value }) }}></input>
@@ -46,7 +45,5 @@ class Filters extends Component {
     );
   }
 }
-
-
 
 export default Filters;
