@@ -14,6 +14,7 @@ const cors = require('cors');
 const path = require('path');
 const userRouter = require('./routes/userRouter');
 const charityRouter = require('./routes/charityRouter');
+const apollo = require('./gql/apollo');
 
 const PORT = process.env.PORT || 3000;
 const app = express();
@@ -58,4 +59,7 @@ app.use((err, req, res, next) => {
 
 app.listen(PORT, () => {
   console.log(`App listening on PORT ${PORT}`);
+  apollo.listen().then(({ url }) => {
+    console.log(`Apollo server running ${url}`);
+  });
 });
